@@ -1,5 +1,6 @@
-package com.example
+package com.example.plugins
 
+import com.example.di.koinModule
 import io.ktor.server.application.*
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.logger.slf4jLogger
@@ -18,6 +19,7 @@ fun Application.configureKoin() {
         slf4jLogger()
         modules(
             // Your modules here
+            koinModule
         )
     }
 }
