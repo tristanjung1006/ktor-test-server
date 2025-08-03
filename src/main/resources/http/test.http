@@ -1,0 +1,6 @@
+### GET request to local host
+GET http://127.0.0.1:8080
+Content-Type: application/json
+
+### GET request to local host
+GET http://127.0.0.1:8080/images/sasuke.jpg
