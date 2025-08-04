@@ -40,6 +40,8 @@ jobs:
         echo "JAVA_HOME is: $JAVA_HOME"
         java -version
         ./gradlew test jacocoTestReport --stacktrace --info
+      env:
+        GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8"
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
