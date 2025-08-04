@@ -4,3 +4,12 @@ Content-Type: application/json
 
 ### GET request to local host
 GET http://127.0.0.1:8080/images/sasuke.jpg
+
+### GET request to local host
+GET http://127.0.0.1:8080/boruto/heroes
+
+### GET request to local host
+GET http://127.0.0.1:8080/boruto/heroes/search?name=sa
+
+### GET request to local host
+GET http://127.0.0.1:8080/test
