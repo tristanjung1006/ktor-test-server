@@ -16,10 +16,10 @@ jobs:
       with:
         fetch-depth: 0  # Codecov가 git history를 필요로 함
     
-    - name: Set up JDK 17
+    - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
     
     - name: Cache Gradle packages
@@ -36,7 +36,10 @@ jobs:
       run: chmod +x gradlew
     
     - name: Run tests and generate coverage
-      run: ./gradlew test jacocoTestReport
+      run: |
+        echo "JAVA_HOME is: $JAVA_HOME"
+        java -version
+        ./gradlew test jacocoTestReport --stacktrace --info
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
@@ -49,7 +52,7 @@ jobs:
         verbose: true
     
     - name: Archive test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       if: always()
       with:
         name: test-results
