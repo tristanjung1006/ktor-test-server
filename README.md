@@ -1,5 +1,7 @@
 # ktor-test-server
 
+[![codecov](https://codecov.io/gh/tristanjung1006/ktor-test-server/graph/badge.svg)](https://codecov.io/gh/tristanjung1006/ktor-test-server)
+
 This project was created using the [Ktor Project Generator](https://start.ktor.io).
 
 Here are some useful links to get you started:
