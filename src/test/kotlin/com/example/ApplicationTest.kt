@@ -10,8 +10,8 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.testApplication
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import org.koin.core.context.stopKoin
 import kotlin.test.assertEquals
 
@@ -22,7 +22,7 @@ class ApplicationTest {
     이전 테스트에서 이미 Koin이 초기화되어있어서 충돌이 발생하므로 Koin을 정리해준다.
      */
 
-    @After
+    @AfterEach
     fun tearDown() {
         stopKoin()
     }

@@ -1,0 +1,33 @@
+codecov:
+  require_ci_to_pass: true
+
+coverage:
+  precision: 2
+  round: down
+
+  status:
+    project:
+      default:
+        target: 70%          # 전체 프로젝트 커버리지 목표
+        threshold: 5%        # 허용 가능한 커버리지 감소폭
+        base: auto
+    patch:
+      default:
+        target: 80%          # 새로운 코드의 커버리지 목표
+        threshold: 5%
+        base: auto
+
+# 제외할 파일들
+ignore:
+  - "src/main/kotlin/**/Application.kt"
+  - "src/main/kotlin/**/ApplicationKt.class"
+  - "src/main/kotlin/**/plugins/**"
+  - "src/main/kotlin/**/models/**"
+  - "src/test/**"
+  - "build/**"
+
+# PR 코멘트 설정
+comment:
+  layout: "reach,diff,flags,files"
+  behavior: default
+  require_changes: false
