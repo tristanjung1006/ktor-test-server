@@ -2,9 +2,9 @@ name: CI with Codecov
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ master ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ master ]
 
 jobs:
   test-and-coverage:
@@ -39,9 +39,20 @@ jobs:
       run: |
         echo "JAVA_HOME is: $JAVA_HOME"
         java -version
-        ./gradlew test jacocoTestReport --stacktrace --info
+        ./gradlew test jacocoTestReport --stacktrace --info -Dorg.gradle.java.home="$JAVA_HOME"
       env:
         GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8"
+    
+    - name: Verify coverage file exists
+      run: |
+        ls -la build/reports/jacoco/test/
+        if [ -f "build/reports/jacoco/test/jacocoTestReport.xml" ]; then
+          echo "Coverage file found"
+          head -20 build/reports/jacoco/test/jacocoTestReport.xml
+        else
+          echo "Coverage file not found!"
+          exit 1
+        fi
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
@@ -50,8 +61,17 @@ jobs:
         files: ./build/reports/jacoco/test/jacocoTestReport.xml
         flags: unittests
         name: codecov-umbrella
-        fail_ci_if_error: false  # 처음에는 false로 설정
+        fail_ci_if_error: true  # 에러 시 실패하도록 변경
         verbose: true
+        override_branch: main
+        override_commit: ${{ github.sha }}
+    
+    - name: Upload coverage via curl (fallback)
+      if: failure()
+      run: |
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov -f build/reports/jacoco/test/jacocoTestReport.xml -t ${{ secrets.CODECOV_TOKEN }}
     
     - name: Archive test results
       uses: actions/upload-artifact@v4
